@@ -46,9 +46,8 @@ Run `python dataset.py --help` for the full option list.
 
 ### Viewing results
 
-- Open `SOEN321_static_analysis.html` locally (double-click or `start` on Windows) for the color-coded table. GitHub READMEs cannot render HTML inline, but you can link to the file directly: [Styled table](SOEN321_static_analysis.html). For a web-viewable version, publish it via GitHub Pages or another static host.
-- Include the PNGs under `plots/` directly in reports/presentations.
-- The Excel workbook remains the canonical data source; update it and rerun the script to refresh all assets.
+- Open `SOEN321_static_analysis.html` locally (double-click or `start` on Windows) for the color-coded table. 
+
 
 ### Repo contents
 
@@ -57,4 +56,4 @@ Run `python dataset.py --help` for the full option list.
 - `SOEN321_static_analysis.html` — latest rendered table
 - `plots/` — generated visualizations
 
-Feel free to open issues/PRs for additional analyses or chart ideas.
+
