@@ -190,35 +190,37 @@ def plot_permission_usage(df: pd.DataFrame, destination: Path) -> Path | None:
     return destination
 
 
-def plot_tracker_vs_risk(df: pd.DataFrame, destination: Path) -> Path | None:
-    required = available_columns(
-        df,
-        [
-            "Nb_Trackers",
-            "Nb_Dangerous_Permissions",
-            "Permission_Risk_Score_0to5",
-        ],
-    )
-    if len(required) < 3:
+def plot_category_scores(df: pd.DataFrame, destination: Path) -> Path | None:
+    if "Category" not in df.columns:
         return None
 
-    fig, ax = plt.subplots(figsize=(7, 6))
-    scatter = ax.scatter(
-        df["Nb_Trackers"],
-        df["Nb_Dangerous_Permissions"],
-        c=df["Permission_Risk_Score_0to5"],
-        cmap="plasma",
-        s=df["Tracker_Intensity_Score_0to5"].fillna(0) * 60 + 40,
-        alpha=0.8,
-    )
-    ax.set_xlabel("Number of trackers")
-    ax.set_ylabel("Dangerous permissions")
-    ax.set_title("Risk landscape: trackers vs dangerous permissions")
-    ax.grid(alpha=0.2, linestyle="--")
-    for _, row in df.iterrows():
-        ax.text(row["Nb_Trackers"] + 0.1, row["Nb_Dangerous_Permissions"] + 0.1, row["App_Name"], fontsize=8)
-    cbar = fig.colorbar(scatter, ax=ax)
-    cbar.set_label("Permission risk score")
+    cols = available_columns(df, SCORE_COLUMNS)
+    if not cols:
+        return None
+
+    grouped = df.groupby("Category")[cols].median().sort_values(by=cols[0], ascending=False)
+
+    x = np.arange(len(grouped.index))
+    width = 0.15
+    fig, ax = plt.subplots(figsize=(12, 6))
+
+    for i, col in enumerate(cols):
+        offset = (i - (len(cols) - 1) / 2) * width
+        ax.bar(
+            x + offset,
+            grouped[col],
+            width=width,
+            label=col.replace("_0to5", "").replace("_", " "),
+        )
+
+    ax.set_xticks(x)
+    ax.set_xticklabels(grouped.index, rotation=20, ha="right")
+    ax.set_ylabel("Median score (0-5 scale)")
+    ax.set_title("Median risk/transparency scores by category")
+    ax.set_ylim(0, 5)
+    ax.legend()
+    ax.grid(axis="y", alpha=0.2, linestyle="--")
+
     fig.tight_layout()
     fig.savefig(destination, dpi=300)
     plt.close(fig)
@@ -233,7 +235,7 @@ def create_plots(df: pd.DataFrame, output_dir: Path) -> List[Path]:
         plot_permission_totals(df, output_dir / "permissions_vs_dangerous.png"),
         plot_average_scores(df, output_dir / "average_scores.png"),
         plot_permission_usage(df, output_dir / "permission_usage.png"),
-        plot_tracker_vs_risk(df, output_dir / "trackers_vs_risk.png"),
+        plot_category_scores(df, output_dir / "category_scores.png"),
     ]
     return [path for path in generated if path is not None]
 

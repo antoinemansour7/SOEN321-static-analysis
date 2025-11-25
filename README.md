@@ -44,16 +44,17 @@ python dataset.py \
 Skip specific artifacts with `--skip-html`, `--skip-excel`, or `--skip-plots`.
 Run `python dataset.py --help` for the full option list.
 
-### Viewing results
-
-- Open `SOEN321_static_analysis.html` locally (double-click or `start` on Windows) for the color-coded table. 
-
-
+- ### Viewing results
+-
+- - Open `SOEN321_static_analysis.html` locally (double-click or `start` on Windows) for the color-coded table. 
+- - For readers of the report: point them to <https://github.com/antoinemansour7/SOEN321-static-analysis>, then have them follow the GitHub Pages link (or click `SOEN321_static_analysis.html` in the file list) so the styled dashboard opens directly in their browser—no setup needed.
+- - Include the PNGs under `plots/` directly in reports/presentations.
+- - The Excel workbook remains the canonical data source; update it and rerun the script to refresh all assets.
+-
 ### Repo contents
 
 - `dataset.py` — data ingestion, styling, and plotting pipeline
 - `SOEN321_static_analysis.xlsx` — analyzed dataset
 - `SOEN321_static_analysis.html` — latest rendered table
 - `plots/` — generated visualizations
-
 
