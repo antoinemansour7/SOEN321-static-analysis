@@ -10,7 +10,7 @@ generates supporting visualizations for reports.
 - pip
 - Dependencies:
   ```bash
-  python -m pip install pandas openpyxl matplotlib numpy
+   python -m pip install pandas openpyxl matplotlib numpy
   ```
 
 ### Reproducing the deliverables
@@ -24,9 +24,9 @@ generates supporting visualizations for reports.
    ```bash
    python dataset.py
    ```
-   This reads `SOEN321_static_analysis_pretty.xlsx` and produces:
-   - `SOEN321_static_analysis_pretty.html` — styled table for quick viewing
-   - `SOEN321_static_analysis_pretty.xlsx` — regenerated workbook (optional overwrite)
+   This reads `SOEN321_static_analysis.xlsx` and produces:
+   - `SOEN321_static_analysis.html` — styled table for quick viewing
+   - `SOEN321_static_analysis.xlsx` — regenerated workbook (optional overwrite)
    - `plots/` — PNG charts summarizing trackers, permissions, and risk metrics
 
 ### Customizing outputs
@@ -46,15 +46,15 @@ Run `python dataset.py --help` for the full option list.
 
 ### Viewing results
 
-- Open `SOEN321_static_analysis_pretty.html` (double-click or `start` on Windows) for the color-coded table.
+- Open `SOEN321_static_analysis.html` locally (double-click or `start` on Windows) for the color-coded table. GitHub READMEs cannot render HTML inline, but you can link to the file directly: [Styled table](SOEN321_static_analysis.html). For a web-viewable version, publish it via GitHub Pages or another static host.
 - Include the PNGs under `plots/` directly in reports/presentations.
 - The Excel workbook remains the canonical data source; update it and rerun the script to refresh all assets.
 
 ### Repo contents
 
 - `dataset.py` — data ingestion, styling, and plotting pipeline
-- `SOEN321_static_analysis_pretty.xlsx` — analyzed dataset
-- `SOEN321_static_analysis_pretty.html` — latest rendered table
+- `SOEN321_static_analysis.xlsx` — analyzed dataset
+- `SOEN321_static_analysis.html` — latest rendered table
 - `plots/` — generated visualizations
 
 Feel free to open issues/PRs for additional analyses or chart ideas.
